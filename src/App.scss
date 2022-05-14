@@ -1,0 +1,40 @@
+body{
+  margin: 0;
+  font-family: "Consolas";
+  background-color: #e7e7e7; 
+  color: #4b4b4b;
+  font-weight: bold;
+  //font-size: 3rem;
+  // "Roboto","Open Sans",sans-serif
+} 
+
+.center{
+  display: flex;
+  place-content: center;
+  height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cell{
+    border:1px solid rgb(75, 75, 75);
+    display: flex;
+    place-content: center;
+    align-Items: center;
+}
+
+.button{
+  justify-content: right;
+  border: none ;
+  color: rgb(75, 75, 75);
+  background-color: #e7e7e7;
+  
+}
+
+h1:hover{
+  cursor: pointer;
+}
+
+.icon{
+  height: 23px;
+}
