@@ -1,19 +1,36 @@
 import React from "react";
-import { faBiohazard, faSquareFull } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from '@iconify/react';
+import {  faSquareFull, faFlag} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Cell = ({ col, i, j,onLclick, onRclick }) => {
     const getValue=(celldata)=>{
-        const {isMine, isRevealed ,neighbors} =celldata;
-        //if(isMine && isRevealed) return <FontAwesomeIcon icon={faBiohazard} style={{color:"#ff0000", }}/>
-        if(isMine) return <FontAwesomeIcon icon={faBiohazard} style={{color:"#4b4b4b", }}/>;
+      //<Icon icon="emojione-monotone:thinking-face" />
+        const {checkFlag,isClickedMine,isMine, isRevealed ,neighbors, isFlagged} =celldata;
+        if(checkFlag) return <Icon icon="fa-solid:question" />;
+        if(isFlagged) return <Icon icon="gis:flag-b" color="#b00000"/>
+        if(isMine && isClickedMine) return <Icon icon="mdi:mine" color="#b00000" />;
+        // <FontAwesomeIcon icon={faFlag} className="flag"/>
+        //<FontAwesomeIcon icon={faBomb} style={{color:"#b00000", }}/>
+        //if(isMine) return <Icon icon="mdi:mine" color="#4b4b4b" />;
         if(isRevealed){
+          if(isMine){
+            return <Icon icon="mdi:mine" color="#4b4b4b" />;
+          }
           if(neighbors){
-            return neighbors;
+            if(neighbors==1){
+              return <div className="number1">{neighbors}</div>;
+            }else if(neighbors==2){
+              return <div className="number2">{neighbors}</div>;
+            }else if(neighbors==3){
+              return <div className="number3">{neighbors}</div>;
+            }else{
+              return <div className="number">{neighbors}</div>;
+            }
           }else{
-            return ""
+            return "";
           }
         }
-        // if(neighbors) return neighbors;
+        //if(neighbors) return neighbors;
         return <FontAwesomeIcon icon={faSquareFull} className="icon"/>;
     }
   return (

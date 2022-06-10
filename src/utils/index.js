@@ -36,7 +36,7 @@ export const getNeighbors = (
     if (newX >= 0 && newX < width && newY >= 0 && newY < height) {
       neighbors.push(data[newX][newY]);
     }
-  });
+  });  
   return neighbors;
 };
 
@@ -52,7 +52,7 @@ export const genNeighbors = (data = [], height = 0, width = 0) => {
         height,
         width
       );
-      console.log(area);
+      //console.log(area);
       area.map((value) => {
         if (value.isMine) {
           return mines++;
@@ -67,3 +67,4 @@ export const genNeighbors = (data = [], height = 0, width = 0) => {
   }
   return dataCopy;
 };
+
