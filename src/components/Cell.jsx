@@ -4,14 +4,10 @@ import {  faSquareFull, faFlag} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Cell = ({ col, i, j,onLclick, onRclick }) => {
     const getValue=(celldata)=>{
-      //<Icon icon="emojione-monotone:thinking-face" />
         const {checkFlag,isClickedMine,isMine, isRevealed ,neighbors, isFlagged} =celldata;
         if(checkFlag) return <Icon icon="fa-solid:question" />;
         if(isFlagged) return <Icon icon="gis:flag-b" color="#b00000"/>
         if(isMine && isClickedMine) return <Icon icon="mdi:mine" color="#b00000" />;
-        // <FontAwesomeIcon icon={faFlag} className="flag"/>
-        //<FontAwesomeIcon icon={faBomb} style={{color:"#b00000", }}/>
-        //if(isMine) return <Icon icon="mdi:mine" color="#4b4b4b" />;
         if(isRevealed){
           if(isMine){
             return <Icon icon="mdi:mine" color="#4b4b4b" />;

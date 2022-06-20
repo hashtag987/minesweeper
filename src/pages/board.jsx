@@ -7,12 +7,13 @@ import { Icon } from '@iconify/react';
 import Popup from "../components/Popup";
 import Confetti from "../components/Confetti";
 import Conf from "../components/Conf";
+import "./boardstyle.scss";
 const Board = () => {
   
   const setupData = {
-    width: 12,
-    height: 12,
-    mines: 15,
+    width: 5,
+    height: 5,
+    mines: 5,
   };
 
   const dialogs=["Too Soon uh??","Focus Focus Focus!!","You've come this far","Little bit Concentration!!","You're Kidding right?","Seriously?",
@@ -90,7 +91,7 @@ const Board = () => {
     let m = setupData.height, n = setupData.width;
     var q = [];
     q.push([x,y]);
-    console.log(q.length);
+    //console.log(q.length);
     while(q.length>0){
       console.log("hello");
       let pair = q.shift();
@@ -150,7 +151,7 @@ const Board = () => {
     let mines = 1, revealed = 1;
     for(let i = 0;i<setupData.height;i++){
       for(let j = 0;j<setupData.width;j++){
-        console.log("sdshdsd");
+        //console.log("sdshdsd");
         if(grid[i][j].isMine && grid[i][j].isFlagged){
           mines++;
         }
@@ -159,8 +160,8 @@ const Board = () => {
         }
       }
     }
-    console.log("mines: "+mines);
-    console.log("revealed: "+revealed);
+    //console.log("mines: "+mines);
+    //console.log("revealed: "+revealed);
     let totalCells = setupData.height*setupData.width;
     return revealed===totalCells-setupData.mines;
   }
@@ -169,45 +170,41 @@ const Board = () => {
     if(won || lost){
       return;
     }
-    if (event.type === "click") {
-      event.preventDefault();
-      let updatedGrid = grid;
-      if(grid[x][y].isFlagged) return;
-      if (grid[x][y].isRevealed){
-        console.log(grid[x][y]);
-        return;
-      }
-      if(!grid[x][y].isRevealed){
-        updatedGrid = produce(grid, (draft) => {
-          Object.assign(draft[x][y], { isRevealed: true });
-        });
-      }
-      if (updatedGrid[x][y].isMine) {
-        gameOver(x,y);
-        return setgameState(<Icon icon="entypo:emoji-sad" color="#830000"/>);
-      }
-      if(updatedGrid[x][y].isEmpty){
-        revealCells(x,y);
-        if(hasWon()){
-          sethaswon("You Won!!!")
-          setwon(true);
-          setquit(false);
-          console.log("DONE");
-        }
-        return;
-      }
-      setgrid(updatedGrid);
+    event.preventDefault();
+    let updatedGrid = grid;
+    if(grid[x][y].isFlagged) return;
+    if (grid[x][y].isRevealed){
       console.log(grid[x][y]);
+      return;
+    }
+    if(!grid[x][y].isRevealed){
+      updatedGrid = produce(grid, (draft) => {
+        Object.assign(draft[x][y], { isRevealed: true });
+      });
+    }
+    if (updatedGrid[x][y].isMine) {
+      gameOver(x,y);
+      return setgameState(<Icon icon="entypo:emoji-sad" color="#830000"/>);
+    }
+    if(updatedGrid[x][y].isEmpty){
+      revealCells(x,y);
       if(hasWon()){
         sethaswon("You Won!!!")
         setwon(true);
         setquit(false);
-        setconf(true);
-        setgameState(<Icon icon="bi:emoji-sunglasses" color="#016301"/>);
         console.log("DONE");
       }
-    } else {
-      console.log("right click");
+      return;
+    }
+    setgrid(updatedGrid);
+    console.log(grid[x][y]);
+    if(hasWon()){
+      sethaswon("You Won!!!")
+      setwon(true);
+      setquit(false);
+      setconf(true);
+      setgameState(<Icon icon="bi:emoji-sunglasses" color="#016301"/>);
+      console.log("DONE");
     }
   };
 
@@ -216,7 +213,7 @@ const Board = () => {
       return;
     }
     event.preventDefault();
-    console.log("right click");
+    //console.log("right click");
     let updatedGrid = grid;
     if(grid[x][y].isFlagged){
       //console.log("herfgfge");
@@ -235,19 +232,11 @@ const Board = () => {
       setflaggedMines(flaggedMines - 1);
     }
     if (flaggedMines === 0) {
-      //sethaswon("You Won!!!");
       setflaggedMines(0);
     }
     console.log(flaggedMines);
     setgrid(updatedGrid);
     console.log(grid[x][y]);
-    // if(hasWon()){
-    //   sethaswon("You Won!!!");
-    //   setwon(true);
-    //   setquit(false);
-    //   setgameState(<Icon icon="bi:emoji-sunglasses" color="#016301"/>);
-    //   console.log("DONE");
-    // }
   };
 
   const resetGame = (e, setupData) => {
